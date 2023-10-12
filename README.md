@@ -62,5 +62,6 @@ After you have successfully built the project, you can run the application using
 
 ### Feature-4 screenshots (Output .dot and .png files)
 ![Feature-4-output-dot-file](https://github.com/welldonepig/welldonepig-CSE-464-2023-tchen128/blob/main/screenshots/Feature-4-output-dot-file.png)
+
 ![Feature-4-output-png-file](https://github.com/welldonepig/welldonepig-CSE-464-2023-tchen128/blob/main/screenshots/Feature-4-output-png-file.png)
 
