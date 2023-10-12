@@ -31,6 +31,26 @@ public class GraphParserTest {
     }
 
     @Test
+    public void testOutputGraph() throws IOException {
+        String expectedFilePath = System.getProperty("user.dir")  + "/welldonepig-CSE-464-2023-tchen128/src/test/resources/expected.txt";
+
+        String inputFilePath = System.getProperty("user.dir")  + "/welldonepig-CSE-464-2023-tchen128/src/test/resources/input.dot";
+        parser.parseGraph(inputFilePath); // Load the test graph
+        // Execute the outputGraph method
+        String outputFilePath = System.getProperty("user.dir")  + "/welldonepig-CSE-464-2023-tchen128/src/test/resources/output.txt";
+        parser.outputGraph(outputFilePath);
+
+        // Read the actual output from the generated "output.dot" file
+        String actualOutput = readFileContent(outputFilePath);
+
+        // Read the expected output from the "expected.dot" file
+        String expectedOutput = readFileContent(expectedFilePath);
+
+        // Compare the expected and actual outputs
+        Assertions.assertEquals(expectedOutput, actualOutput);
+    }
+
+    @Test
     public void testGetNumberOfNodes() {
         String filePath = System.getProperty("user.dir")  + "/welldonepig-CSE-464-2023-tchen128/src/test/resources/test.dot";
         parser.parseGraph(filePath); // Load a test graph

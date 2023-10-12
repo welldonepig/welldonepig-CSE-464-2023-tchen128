@@ -42,6 +42,22 @@ public class GraphParser {
 
         return graph;
     }
+
+    public void outputGraph(String filePath) {
+        File file = new File(filePath);
+
+        try (PrintWriter writer = new PrintWriter(file)) {
+            writer.println("digraph G {");
+            for (DefaultEdge edge : graph.edgeSet()) {
+                String source = graph.getEdgeSource(edge);
+                String target = graph.getEdgeTarget(edge);
+                writer.println("    " + source + " -> " + target + ";");
+            }
+            writer.println("}");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     public void printDotFileContents(File file) {
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
@@ -148,8 +164,14 @@ public class GraphParser {
 
     public static void main(String[] args) throws Exception{
 
+        System.out.println("");
+
         GraphParser parser = new GraphParser();
         parser.parseGraph("input.dot");
+
+        parser.outputGraph("output.txt");
+
+        System.out.println(parser.toString());
 
         // Add a single node
         parser.addNode("X");
@@ -157,6 +179,9 @@ public class GraphParser {
         // Add a list of nodes
         String[] newNodes = {"Y", "Z", "X"}; // "X" is a duplicate
         parser.addNodes(newNodes);
+
+        System.out.println(parser.toString());
+
 
         // Add a single edge
         parser.addEdge("X", "Y");
