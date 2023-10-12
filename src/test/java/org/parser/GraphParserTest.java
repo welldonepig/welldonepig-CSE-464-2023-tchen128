@@ -101,4 +101,32 @@ public class GraphParserTest {
         assertTrue(parser.getNodeLabels().contains("Z"));
     }
 
+    @Test
+    public void testAddEdge() {
+        GraphParser parser = new GraphParser();
+        parser.addNode("A");
+        parser.addNode("B");
+        parser.addNode("C");
+
+        // Test adding a valid edge
+        parser.addEdge("A", "B");
+        assertTrue(parser.getGraph().containsEdge("A", "B"));
+
+        // Test adding an edge that already exists
+        parser.addEdge("A", "B");
+        assertTrue(parser.getGraph().containsEdge("A", "B"));
+
+        // Test adding an edge with a missing source vertex
+        parser.addEdge("X", "A");
+        assertFalse(parser.getGraph().containsEdge("X", "A"));
+
+        // Test adding an edge with a missing destination vertex
+        parser.addEdge("A", "Y");
+        assertFalse(parser.getGraph().containsEdge("A", "Y"));
+
+        // Test adding an edge with both missing vertices
+        parser.addEdge("X", "Y");
+        assertFalse(parser.getGraph().containsEdge("X", "Y"));
+    }
+
 }

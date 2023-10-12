@@ -104,7 +104,24 @@ public class GraphParser {
         }
     }
 
+    // Add an edge and check for duplicate edges
+    public void addEdge(String srcLabel, String dstLabel) {
+        if (graph.containsVertex(srcLabel) && graph.containsVertex(dstLabel)) {
+            DefaultEdge newEdge = new DefaultEdge();
 
+            if (graph.addEdge(srcLabel, dstLabel, newEdge)) {
+                System.out.println("Edge (" + srcLabel + " -> " + dstLabel + ") added.");
+            } else {
+                System.out.println("Edge (" + srcLabel + " -> " + dstLabel + ") already exists.");
+            }
+        } else {
+            System.out.println("One or both of the nodes do not exist in the graph.");
+        }
+    }
+
+    public Graph getGraph() {
+        return this.graph;
+    }
 
     public static void main(String[] args) {
 
@@ -115,8 +132,12 @@ public class GraphParser {
         parser.addNode("X");
 
         // Add a list of nodes
-        String[] newNodes = {"Y", "X"}; // "X" is a duplicate
+        String[] newNodes = {"Y", "Z", "X"}; // "X" is a duplicate
         parser.addNodes(newNodes);
+
+        // Add a single edge
+        parser.addEdge("X", "Y");
+        parser.addEdge("X", "Y"); // This will print a message about a duplicate edge
 
         System.out.println(parser.toString());
 
