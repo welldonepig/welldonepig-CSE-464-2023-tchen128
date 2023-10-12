@@ -14,32 +14,47 @@
     </properties>
 
 
-    <dependencies>
-        <dependency>
-            <groupId>org.jgrapht</groupId>
-            <artifactId>jgrapht-core</artifactId>
-            <version>1.1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.jgrapht</groupId>
-            <artifactId>jgrapht-io</artifactId>
-            <version>1.1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-            <version>5.8.0</version> <!-- Replace with the desired JUnit 5 version -->
-            <scope>test</scope>
-        </dependency>
+<dependencies>
+    <!-- JGraphT -->
+    <dependency>
+        <groupId>org.jgrapht</groupId>
+        <artifactId>jgrapht-core</artifactId>
+        <version>1.0.0</version>
+    </dependency>
+    <dependency>
+        <groupId>org.jgrapht</groupId>
+        <artifactId>jgrapht-io</artifactId>
+        <version>1.1.0</version>
+    </dependency>
+    
+    <!-- Graphviz-Java -->
+    <dependency>
+        <groupId>guru.nidi</groupId>
+        <artifactId>graphviz-java</artifactId>
+        <version>0.16.0</version>
+    </dependency>
+    
+    <!-- JGraphT-Ext -->
+    <dependency>
+        <groupId>org.jgrapht</groupId>
+        <artifactId>jgrapht-ext</artifactId>
+        <version>1.1.0</version>
+    </dependency>
 
-        <!-- JUnit 5 Jupiter Engine for running tests -->
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-engine</artifactId>
-            <version>5.8.0</version> <!-- Replace with the desired JUnit 5 version -->
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
+    <!-- JUnit 5 -->
+    <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter-api</artifactId>
+        <version>5.8.0</version>
+        <scope>test</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter-engine</artifactId>
+        <version>5.8.0</version>
+        <scope>test</scope>
+    </dependency>
+</dependencies>
 
 </project>
 

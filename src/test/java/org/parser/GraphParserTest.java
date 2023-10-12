@@ -2,8 +2,10 @@ package org.parser;
 
 import org.jgrapht.DirectedGraph;
 import org.jgrapht.graph.DefaultEdge;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.parser.GraphParser;
 
 import java.util.Set;
 
@@ -52,4 +54,51 @@ public class GraphParserTest {
         assertTrue(edges.contains("A -> B"));
         assertTrue(edges.contains("B -> D"));
     }
+
+    @Test
+    public void testAddNode() {
+        parser.addNode("A");
+        parser.addNode("B");
+        parser.addNode("C");
+
+        assertEquals(3, parser.getNumberOfNodes()); // Three nodes added
+        assertTrue(parser.getNodeLabels().contains("A"));
+        assertTrue(parser.getNodeLabels().contains("B"));
+        assertTrue(parser.getNodeLabels().contains("C"));
+    }
+
+    @Test
+    public void testAddNodeWithDuplicate() {
+        parser.addNode("X");
+        parser.addNode("Y");
+        parser.addNode("X"); // Attempt to add a duplicate
+
+        assertEquals(2, parser.getNumberOfNodes()); // Only two unique nodes should be added
+        assertTrue(parser.getNodeLabels().contains("X"));
+        assertTrue(parser.getNodeLabels().contains("Y"));
+    }
+
+    @Test
+    public void testAddNodes() {
+        String[] nodes = {"A", "B", "C", "D"};
+        parser.addNodes(nodes);
+
+        assertEquals(4, parser.getNumberOfNodes()); // Four nodes added
+        assertTrue(parser.getNodeLabels().contains("A"));
+        assertTrue(parser.getNodeLabels().contains("B"));
+        assertTrue(parser.getNodeLabels().contains("C"));
+        assertTrue(parser.getNodeLabels().contains("D"));
+    }
+
+    @Test
+    public void testAddNodesWithDuplicates() {
+        String[] nodes = {"X", "Y", "X", "Z"};
+        parser.addNodes(nodes);
+
+        assertEquals(3, parser.getNumberOfNodes()); // Only three unique nodes should be added
+        assertTrue(parser.getNodeLabels().contains("X"));
+        assertTrue(parser.getNodeLabels().contains("Y"));
+        assertTrue(parser.getNodeLabels().contains("Z"));
+    }
+
 }

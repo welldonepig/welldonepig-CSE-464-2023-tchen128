@@ -4,12 +4,9 @@ import org.jgrapht.*;
 import org.jgrapht.graph.*;
 import org.jgrapht.io.*;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+
+import java.io.*;
+import java.util.*;
 
 public class GraphParser {
 
@@ -92,13 +89,34 @@ public class GraphParser {
         return result.toString();
     }
 
+    public void addNode(String label) {
+        if (!graph.containsVertex(label)) {
+            graph.addVertex(label);
+        } else {
+            System.out.println("Node with label '" + label + "' already exists.");
+        }
+    }
+
+    // Add a list of nodes
+    public void addNodes(String[] labels) {
+        for (String label : labels) {
+            addNode(label);
+        }
+    }
+
+
 
     public static void main(String[] args) {
 
         GraphParser parser = new GraphParser();
+        parser.parseGraph("input.dot");
 
-        String path = System.getProperty("user.dir") + "/input.dot";
-        parser.parseGraph(path);
+        // Add a single node
+        parser.addNode("X");
+
+        // Add a list of nodes
+        String[] newNodes = {"Y", "X"}; // "X" is a duplicate
+        parser.addNodes(newNodes);
 
         System.out.println(parser.toString());
 
