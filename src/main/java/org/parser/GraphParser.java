@@ -32,13 +32,25 @@ public class GraphParser {
                     return new DefaultEdge();
                 }
             });
-
+            printDotFileContents(file);
             importer.importGraph(graph, file);
+        } catch(NoSuchElementException e) {
+            e.printStackTrace();
         } catch (ImportException e) {
             e.printStackTrace();
         }
 
         return graph;
+    }
+    public void printDotFileContents(File file) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public int getNumberOfNodes() {
@@ -62,23 +74,6 @@ public class GraphParser {
         }
         return edges;
     }
-
-    public void outputGraph(String filePath) {
-        File file = new File(filePath);
-
-        try (PrintWriter writer = new PrintWriter(file)) {
-            writer.println("digraph G {");
-            for (DefaultEdge edge : graph.edgeSet()) {
-                String source = graph.getEdgeSource(edge);
-                String target = graph.getEdgeTarget(edge);
-                writer.println("    " + source + " -> " + target + ";");
-            }
-            writer.println("}");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
 
     public String toString() {
         StringBuilder result = new StringBuilder();
@@ -123,7 +118,35 @@ public class GraphParser {
         return this.graph;
     }
 
-    public static void main(String[] args) {
+    public void outputDOTGraph(String filePath) {
+        File file = new File(filePath);
+
+        try (PrintWriter writer = new PrintWriter(file)) {
+            writer.println("digraph G {");
+            for (DefaultEdge edge : graph.edgeSet()) {
+                String source = graph.getEdgeSource(edge);
+                String target = graph.getEdgeTarget(edge);
+                writer.println("    " + source + " -> " + target + ";");
+            }
+            writer.println("}");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void outputGraphics(String dotPath, String pngPath) throws IOException {
+        String command = "dot -Tpng " + dotPath + " -o " + pngPath;
+        Process process = Runtime.getRuntime().exec(command);
+
+        // Wait for the process to complete
+        try {
+            process.waitFor();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void main(String[] args) throws Exception{
 
         GraphParser parser = new GraphParser();
         parser.parseGraph("input.dot");
@@ -141,7 +164,9 @@ public class GraphParser {
 
         System.out.println(parser.toString());
 
-        parser.outputGraph("output.dot");
+        parser.outputDOTGraph("output.dot");
+
+        parser.outputGraphics("output.dot", "output.png");
 
     }
 }

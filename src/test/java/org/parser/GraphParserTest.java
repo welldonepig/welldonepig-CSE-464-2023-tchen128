@@ -3,9 +3,13 @@ package org.parser;
 import org.jgrapht.DirectedGraph;
 import org.jgrapht.graph.DefaultEdge;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.parser.GraphParser;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
 import java.util.Set;
 
@@ -22,20 +26,22 @@ public class GraphParserTest {
 
     @Test
     public void testParseGraph() {
-        DirectedGraph<String, DefaultEdge> graph = parser.parseGraph("test.dot");
+       DirectedGraph<String, DefaultEdge> graph = parser.parseGraph("test.dot");
         assertNotNull(graph);
     }
 
     @Test
     public void testGetNumberOfNodes() {
-        parser.parseGraph("test.dot"); // Load a test graph
+        String filePath = System.getProperty("user.dir")  + "/welldonepig-CSE-464-2023-tchen128/src/test/resources/test.dot";
+        parser.parseGraph(filePath); // Load a test graph
         int numberOfNodes = parser.getNumberOfNodes();
-        assertEquals(7, numberOfNodes);
+        assertEquals(5, numberOfNodes);
     }
 
     @Test
     public void testGetNodeLabels() {
-        parser.parseGraph("test.dot"); // Load a test graph
+        String filePath = System.getProperty("user.dir")  + "/welldonepig-CSE-464-2023-tchen128/src/test/resources/test.dot";
+        parser.parseGraph(filePath); // Load a test graph
         Set<String> nodeLabels = parser.getNodeLabels();
         assertTrue(nodeLabels.contains("A"));
         assertTrue(nodeLabels.contains("B"));
@@ -43,13 +49,15 @@ public class GraphParserTest {
 
     @Test
     public void testGetNumberOfEdges() {
-        parser.parseGraph("test.dot"); // Load a test graph
+        String filePath = System.getProperty("user.dir")  + "/welldonepig-CSE-464-2023-tchen128/src/test/resources/test.dot";
+        parser.parseGraph(filePath); // Load a test graph
         int numberOfEdges = parser.getNumberOfEdges();
         assertEquals(6, numberOfEdges);
     }
     @Test
     public void testGetEdges() {
-        parser.parseGraph("test.dot"); // Load a test graph
+        String filePath = System.getProperty("user.dir")  + "/welldonepig-CSE-464-2023-tchen128/src/test/resources/test.dot";
+        parser.parseGraph(filePath); // Load a test graph
         Set<String> edges = parser.getEdges();
         assertTrue(edges.contains("A -> B"));
         assertTrue(edges.contains("B -> D"));
@@ -129,4 +137,35 @@ public class GraphParserTest {
         assertFalse(parser.getGraph().containsEdge("X", "Y"));
     }
 
+
+    @Test
+    public void testOutputDOTGraph() throws IOException {
+        String expectedFilePath = System.getProperty("user.dir")  + "/welldonepig-CSE-464-2023-tchen128/src/test/resources/expected.dot";
+
+        String inputFilePath = System.getProperty("user.dir")  + "/welldonepig-CSE-464-2023-tchen128/src/test/resources/input.dot";
+        parser.parseGraph(inputFilePath); // Load the test graph
+        // Execute the outputDOTGraph method
+        String outputFilePath = System.getProperty("user.dir")  + "/welldonepig-CSE-464-2023-tchen128/src/test/resources/output.dot";
+        parser.outputDOTGraph(outputFilePath);
+
+        // Read the actual output from the generated "output.dot" file
+        String actualOutput = readFileContent(outputFilePath);
+
+        // Read the expected output from the "expected.dot" file
+        String expectedOutput = readFileContent(expectedFilePath);
+
+        // Compare the expected and actual outputs
+        Assertions.assertEquals(expectedOutput, actualOutput);
+    }
+
+    private String readFileContent(String filePath) throws IOException {
+        StringBuilder content = new StringBuilder();
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                content.append(line).append("\n");
+            }
+        }
+        return content.toString();
+    }
 }
