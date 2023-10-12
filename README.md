@@ -47,14 +47,20 @@ After you have successfully built the project, you can run the application using
     mvn test
 
 ## Screenshots
+
+### Input.dot file screenshot
 ![Input-dot-file](https://github.com/welldonepig/welldonepig-CSE-464-2023-tchen128/blob/main/screenshots/Input-dot-file.png)
 
+### Feature-1 screenshot
 ![Feature-1](https://github.com/welldonepig/welldonepig-CSE-464-2023-tchen128/blob/main/screenshots/Feature-1.png)
 
+### Feature-2 screenshot
 ![Feature-2](https://github.com/welldonepig/welldonepig-CSE-464-2023-tchen128/blob/main/screenshots/Feature-2.png)
 
+### Feature-3 screenshot
 ![Feature-3](https://github.com/welldonepig/welldonepig-CSE-464-2023-tchen128/blob/main/screenshots/Feature-3.png)
 
+### Feature-4 screenshots (Output .dot and .png files)
 ![Feature-4-output-dot-file](https://github.com/welldonepig/welldonepig-CSE-464-2023-tchen128/blob/main/screenshots/Feature-4-output-dot-file.png)
 ![Feature-4-output-png-file](https://github.com/welldonepig/welldonepig-CSE-464-2023-tchen128/blob/main/screenshots/Feature-4-output-png-file.png)
 
